@@ -2,10 +2,10 @@
 
 class Node {
 
-    int data;
+    String data;
     Node left, right;
 
-    public Node(int item) {
+    public Node(String item) {
         data = item;
         left = right = null;
     }
@@ -61,6 +61,29 @@ public class SumTree {
 	        
 	    }
 	
+	/**
+	 * Suma el valor de todos los nodos del arbol en orden
+	 * @param raiz
+	 * @param sum
+	 */
+	public static void sumarInOrder(Node raiz, int sum) {
+		if(raiz == null) {
+			return 0;
+		} else {
+			sumarInOrder(raiz.left, sum);
+			System.out.println(raiz.data);
+		//	sum += raiz.data;
+			sumarInOrder(raiz.right, sum);
+			return sum;
+		}
+		
+	 
+	
+		
+	}
+	
+	//(9+4)*(7*20)
+	
 	 public boolean checkSum() {
 		 if(root.data == sum(root)) {
 			 return true;
@@ -72,7 +95,7 @@ public class SumTree {
 	 public static void main(String args[]) {
 	        
 	        SumTree tree = new SumTree();
-	        tree.root = new Node(0);
+	        tree.root = new Node(44);
 	        tree.root.left = new Node(9);
 	        tree.root.right = new Node(13);
 	        tree.root.left.left = new Node(4);
@@ -81,6 +104,6 @@ public class SumTree {
 	        tree.root.right.right = new Node(6);
 	        
 	        tree.root.data = tree.sum(tree.root);
-	        System.out.println(tree.root.data);
+	        System.out.println(sumarInOrder(tree.root, 0));
 	 }
 }

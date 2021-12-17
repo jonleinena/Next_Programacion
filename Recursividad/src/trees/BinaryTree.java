@@ -1,14 +1,16 @@
 package trees;
 
 class Node {
-    int key;
+    String key;
     Node left, right;
  
-    public Node(int item)
+    public Node(String item)
     {
         key = item;
         left = right = null;
     }
+    
+    
 }
  
 class BinaryTree {
@@ -65,22 +67,36 @@ class BinaryTree {
         /* now recur on right subtree */
         printPreorder(node.right);
     }
+    
+    void printExpression(Node n) {
+		if (n == null) 
+			return;
+			System.out.print("(");
+			printExpression(n.left);
+			System.out.print(n.key);
+			printExpression(n.right);
+			System.out.print(")");
+		
+	}
  
     // Wrappers over above recursive functions
     void printPostorder() { printPostorder(root); }
     void printInorder() { printInorder(root); }
     void printPreorder() { printPreorder(root); }
+    void printExpression() { printExpression(root); }
  
     // Driver method
     public static void main(String[] args)
     {
         BinaryTree tree = new BinaryTree();
-        tree.root = new Node(1);
-        tree.root.left = new Node(2);
-        tree.root.right = new Node(3);
-        tree.root.left.left = new Node(4);
-        tree.root.left.right = new Node(5);
- 
+        tree.root = new Node("+");
+        tree.root.left = new Node("*");
+        tree.root.right = new Node("*");
+        tree.root.left.left = new Node("4");
+        tree.root.left.right = new Node("5");
+        tree.root.right.right = new Node("2");
+        tree.root.right.left = new Node("3");
+ /**
         System.out.println(
             "Preorder traversal of binary tree is ");
         tree.printPreorder();
@@ -92,5 +108,8 @@ class BinaryTree {
         System.out.println(
             "\nPostorder traversal of binary tree is ");
         tree.printPostorder();
+        
+      */
+       tree.printExpression();
     }
 }
