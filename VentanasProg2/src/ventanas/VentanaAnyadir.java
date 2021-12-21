@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import clases.Usuario;
+import utilidades.Ficheros;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -75,11 +76,15 @@ public class VentanaAnyadir extends JFrame {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				u.add(new Usuario(textField.getText(), textField_1.getText(), Integer.parseInt(textField_2.getText())));
+				Ficheros.escribirNuevoUsuario(u);
+				
+				
+				padre.cargarJList();
 				padre.setVisible(true);
 				//ventana v = new ventana();
 				//v.setVisible(true);
-				VentanaAnyadir.this.setVisible(false);
-				VentanaAnyadir.this.dispose();
+				VentanaAnyadir.this.setVisible(false); //oculto la ventana
+				VentanaAnyadir.this.dispose(); // para borrar la ventana y liberar memoria
 			}
 		});
 		btnGuardar.setBounds(148, 310, 141, 35);

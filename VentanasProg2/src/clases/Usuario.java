@@ -12,6 +12,7 @@ public class Usuario {
 		this.nombre = nombre;
 		this.dni = dni;
 		this.edad = edad;
+				
 	}
 
 

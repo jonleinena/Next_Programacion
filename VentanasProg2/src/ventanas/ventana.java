@@ -27,6 +27,8 @@ public class ventana extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private ArrayList<Usuario> users;
+	private JList<Usuario> list;
+	private DefaultListModel<Usuario> model1;
 
 	/**
 	 * Launch the application.
@@ -60,7 +62,7 @@ public class ventana extends JFrame {
 		comboBox.setBounds(360, 44, 163, 32);
 		contentPane.add(comboBox);
 		
-		JList list = new JList();
+		list = new JList();
 		list.setBounds(61, 102, 179, 213);
 		contentPane.add(list);
 		
@@ -68,13 +70,7 @@ public class ventana extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(opciones));
 		
 		
-		this.users = Ficheros.leerTodosUsuarios();
-		DefaultListModel<Usuario> model1 = new DefaultListModel<Usuario>();
-		for (Usuario usuario : users) {
-			model1.addElement(usuario);
-		}
-		list.setModel(model1);
-		
+		this.cargarJList();
 		
 		textField = new JTextField();
 		textField.setBounds(309, 130, 186, 32);
@@ -97,8 +93,14 @@ public class ventana extends JFrame {
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				model1.remove(list.getSelectedIndex());
 				
+				Usuario u = (Usuario) list.getSelectedValue();
+				System.out.println(u);
+				users.remove(u); //borrar del arrayList
+				Ficheros.escribirNuevoUsuario(users); //como lo he quitado del ArrayList, escribe el fichero SIN el que he borrado
+				model1.remove(list.getSelectedIndex()); //borrando de la ventana
+				//tengo que borrarlo del fichero
+				//cargarJList();
 			}
 		});
 		btnEliminar.setBounds(312, 292, 141, 35);
@@ -127,7 +129,17 @@ public class ventana extends JFrame {
 		this.users = users;
 	}
 	
-	
+	public void cargarJList() {
+		this.users = Ficheros.leerTodosUsuarios(); 
+		
+		this.model1 = new DefaultListModel<Usuario>();
+		for (Usuario usuario : users) {
+			model1.addElement(usuario);
+		}
+		list.setModel(model1);
+		
+		
+	}
 	
 
 }

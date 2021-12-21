@@ -1,11 +1,15 @@
 package utilidades;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import clases.Usuario;
 
 
 
@@ -58,6 +62,25 @@ public class Ficheros {
 		}
 		
 		return users;
+		
+	}
+	
+	public static void escribirNuevoUsuario(ArrayList<Usuario> users) {
+		File aFile = new File("usuarios.txt");
+		try {
+			FileWriter fw = new FileWriter(aFile);
+			BufferedWriter bw = new BufferedWriter(fw);
+			for (int i = 0; i < users.size(); i++) {
+				String linea = users.get(i).getNombre() + ";" + users.get(i).getDni() + ";" + users.get(i).getEdad() + "\n";
+				bw.write(linea);
+			}
+			bw.flush(); 
+			bw.close();
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		
